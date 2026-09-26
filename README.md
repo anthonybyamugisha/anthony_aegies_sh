@@ -1,6 +1,6 @@
 # Anthony Aegies
 
-Personal portfolio and terminal/HUD-styled site for **Anthony Byamugisha** — final-year Computer
+Personal portfolio **Anthony Byamugisha** — final-year Computer
 Science student at Makerere University, focused on cybersecurity, security operations, threat
 detection and SIEM log analysis.
 

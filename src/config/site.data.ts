@@ -42,7 +42,7 @@ export const site = {
   firstName: 'Anthony',
   username: 'anthony',
   brand: 'Anthony Aegies',
-  role: 'Cyber Security Student',
+  role: 'Cyber Security Enthusiast',
   greeting: "Hello, I'm",
   tagline: 'Detecting threats, hunting through logs, and turning raw data into decisions.',
   description: [
