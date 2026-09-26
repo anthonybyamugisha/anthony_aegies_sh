@@ -27,6 +27,33 @@ const EMAILJS_PUBLIC_KEY = String(import.meta.env.VITE_EMAILJS_PUBLIC_KEY ?? '')
 const isEmailJsConfigured =
   EMAILJS_SERVICE_ID !== '' && EMAILJS_TEMPLATE_ID !== '' && EMAILJS_PUBLIC_KEY !== '';
 
+/**
+ * Vite inlines VITE_* at build time, so a malformed value ships silently and
+ * only fails when a real visitor submits the form. These checks catch the two
+ * mistakes that actually happen: pasting a project/folder name instead of the
+ * service ID, and truncating the public key.
+ */
+const EMAILJS_ID_ISSUES: string[] = [
+  EMAILJS_SERVICE_ID !== '' && !EMAILJS_SERVICE_ID.startsWith('service_')
+    ? `VITE_EMAILJS_SERVICE_ID ("${EMAILJS_SERVICE_ID}") does not start with "service_". ` +
+      'Copy the Service ID from EmailJS > Email Services, not the project name.'
+    : '',
+  EMAILJS_TEMPLATE_ID !== '' && !EMAILJS_TEMPLATE_ID.startsWith('template_')
+    ? `VITE_EMAILJS_TEMPLATE_ID ("${EMAILJS_TEMPLATE_ID}") does not start with "template_".`
+    : '',
+  EMAILJS_PUBLIC_KEY !== '' && EMAILJS_PUBLIC_KEY.length < 40
+    ? `VITE_EMAILJS_PUBLIC_KEY is only ${EMAILJS_PUBLIC_KEY.length} characters; ` +
+      'EmailJS public keys are around 64. Copy the whole key from EmailJS > Account.'
+    : '',
+].filter(Boolean);
+
+if (import.meta.env.DEV && EMAILJS_ID_ISSUES.length > 0) {
+  console.error(
+    '[contact] EmailJS configuration looks invalid:\n' +
+      EMAILJS_ID_ISSUES.map((issue) => `  - ${issue}`).join('\n'),
+  );
+}
+
 const isLocal = (href: string) => /^(mailto:|tel:)/.test(href);
 
 const validate = (values: FormValues): FormErrors => {
@@ -300,8 +327,10 @@ const Contact = ({ index = '07' }: ContactProps) => {
                         strokeWidth={1.5}
                       />
                       <p className="text-sm leading-relaxed text-gray-500">
-                        The form is offline. Add the EmailJS keys to your{' '}
-                        <code className="text-neon">.env</code> file to enable it.
+                        This site was built without the contact form credentials, so
+                        messages can't be sent from here. Email{' '}
+                        <span className="text-gray-400">{site.firstName}</span> directly
+                        instead.
                       </p>
                     </div>
 

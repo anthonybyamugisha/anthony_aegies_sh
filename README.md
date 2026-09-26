@@ -90,13 +90,32 @@ cp .env.example .env
 
 | Variable | Purpose | If unset |
 | --- | --- | --- |
-| `VITE_EMAILJS_SERVICE_ID` | EmailJS service | Contact panel shows an offline notice with a `mailto:` fallback instead of the form |
-| `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template | as above |
+| `VITE_EMAILJS_SERVICE_ID` | EmailJS service | Contact panel shows an offline notice with a `mailto:` fallback instead of the form || `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template | as above |
 | `VITE_EMAILJS_PUBLIC_KEY` | EmailJS public key | as above |
 | `VITE_HASHNODE_HOST` | Hashnode GraphQL endpoint | Blog page shows a prompt to set the variable |
 | `VITE_HASHNODE_TOKEN` | Hashnode API token | as above |
 
 Never commit `.env` — it is already in `.gitignore`.
+
+### EmailJS in production
+
+`VITE_*` variables are **inlined into the bundle at build time**, not read at runtime. A local
+`.env` therefore has no effect on a deployed build: the host compiles without it, the constants
+become `undefined`, and the contact form renders its offline state with a `mailto:` fallback.
+
+Set the three variables in the host's build environment, then redeploy:
+
+| Host | Where |
+| --- | --- |
+| Vercel | Project → Settings → Environment Variables → add all three → Redeploy |
+| Netlify | Site configuration → Environment variables → add all three → redeploy |
+
+Tick **all** environments (Production, Preview, Development). Redeploying without re-triggering a
+build will not pick the values up.
+
+To confirm a build has the keys, search the deployed JavaScript bundle for `service_` — if it is
+absent, the form is offline. In development, `npm run dev` logs a console error if the values are
+present but malformed (for example a project name pasted where the Service ID belongs).
 
 ## Project structure
 
@@ -183,7 +202,8 @@ Also confirm:
 - `public/robots.txt` has the same origin in its `Sitemap:` line.
 - `sitemap.xml` lists every indexable route. `/about` and `/skills` are not listed by default.
 - EmailJS variables exist in the host's build environment, not only in your local `.env` — Vite
-  inlines them at build time, so a stale build ships the offline notice.
+  inlines them at build time, so a stale build ships the offline notice. See
+  [EmailJS in production](#emailjs-in-production).
 - A real submission has been sent through the form end to end.
 
 ## Deployment
