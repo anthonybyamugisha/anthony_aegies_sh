@@ -9,7 +9,7 @@ const CertsPage = () => {
       exit={{ opacity: 0 }}
       className="pt-16"
     >
-      <Certifications />
+      <Certifications showFilters />
     </motion.div>
   );
 };

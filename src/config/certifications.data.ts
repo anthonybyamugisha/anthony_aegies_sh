@@ -104,6 +104,20 @@ export const certifications: Certification[] = [
     credentialUrl: 'https://www.oneroadmap.io/skills/python/certificate/CERT-B864FED4',
   },
   {
+    name: 'SQL',
+    code: 'CERT-C4BDD367',
+    issuer: 'OneRoadmap',
+    status: 'CERTIFIED',
+    year: 'Jul 2026',
+    focus: [
+      'SELECT, filtering and sorting',
+      'Joins across multiple tables',
+      'Aggregation and grouping',
+      'Subqueries and basic data modelling',
+    ],
+    credentialUrl: 'https://www.oneroadmap.io/skills/sql/certificate/CERT-C4BDD367',
+  },
+  {
     name: 'Introduction to Networks',
     code: '',
     issuer: 'Cisco Networking Academy',

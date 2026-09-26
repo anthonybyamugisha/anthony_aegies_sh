@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import { Award, FileCheck2, Clock3, CalendarDays, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SectionHeading from './ui/SectionHeading';
@@ -12,12 +13,30 @@ const statusClass: Record<string, string> = {
 
 interface CertificationsProps {
   limit?: number;
+  showFilters?: boolean;
   index?: string;
 }
 
-const Certifications = ({ limit, index = '04' }: CertificationsProps) => {
-  const shown = limit ? certifications.slice(0, limit) : certifications;
-  const hiddenCount = certifications.length - shown.length;
+type StatusFilter = 'ALL' | 'CERTIFIED' | 'IN PROGRESS' | 'PLANNED';
+
+const FILTERS: { value: StatusFilter; label: string }[] = [
+  { value: 'ALL', label: 'all' },
+  { value: 'CERTIFIED', label: 'completed' },
+  { value: 'IN PROGRESS', label: 'in progress' },
+  { value: 'PLANNED', label: 'planned' },
+];
+
+const Certifications = ({ limit, showFilters = false, index = '04' }: CertificationsProps) => {
+  const [active, setActive] = useState<StatusFilter>('ALL');
+
+  const matched = useMemo(
+    () =>
+      active === 'ALL' ? certifications : certifications.filter((c) => c.status === active),
+    [active]
+  );
+
+  const shown = limit ? matched.slice(0, limit) : matched;
+  const hiddenCount = matched.length - shown.length;
 
   return (
     <section id="certs" className="py-24">
@@ -39,6 +58,35 @@ const Certifications = ({ limit, index = '04' }: CertificationsProps) => {
               </div>
             }
           />
+
+          {showFilters && (
+            <div className="mb-10 flex flex-wrap gap-2">
+              {FILTERS.map((filter) => {
+                const isActive = active === filter.value;
+                const count =
+                  filter.value === 'ALL'
+                    ? certifications.length
+                    : certifications.filter((c) => c.status === filter.value).length;
+
+                return (
+                  <button
+                    key={filter.value}
+                    type="button"
+                    onClick={() => setActive(filter.value)}
+                    aria-pressed={isActive}
+                    className={`px-3 py-1.5 text-[11px] tracking-wide border transition-all duration-300 ${
+                      isActive
+                        ? 'bg-neon text-black border-neon font-semibold shadow-neon'
+                        : 'bg-base-800 text-gray-500 border-neon/15 hover:text-neon hover:border-neon/50'
+                    }`}
+                  >
+                    {filter.label}
+                    <span className="ml-1.5 tabular-nums opacity-60">{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           <div className="grid md:grid-cols-2 gap-6">
             {shown.map((certification, i) => (
@@ -107,6 +155,13 @@ const Certifications = ({ limit, index = '04' }: CertificationsProps) => {
               </Reveal>
             ))}
           </div>
+
+          {shown.length === 0 && (
+            <div className="hud-panel p-12 text-center">
+              <p className="text-neon text-xs mb-2">&gt;_ no records</p>
+              <p className="text-sm text-gray-600">Nothing filed under this status yet.</p>
+            </div>
+          )}
 
           {hiddenCount > 0 && (
             <Reveal delay={0.16}>
