@@ -1,4 +1,5 @@
 import { Award, FileCheck2, Clock3, CalendarDays, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import SectionHeading from './ui/SectionHeading';
 import Reveal from './ui/Reveal';
 import { certifications, timelineStats } from '../config/certifications.data';
@@ -9,13 +10,21 @@ const statusClass: Record<string, string> = {
   PLANNED: 'text-gray-600 border-base-400',
 };
 
-const Certifications = () => {
+interface CertificationsProps {
+  limit?: number;
+  index?: string;
+}
+
+const Certifications = ({ limit, index = '04' }: CertificationsProps) => {
+  const shown = limit ? certifications.slice(0, limit) : certifications;
+  const hiddenCount = certifications.length - shown.length;
+
   return (
     <section id="certs" className="py-24">
       <div className="px-6 sm:px-9">
         <div className="mx-auto max-w-5xl">
           <SectionHeading
-            index="04"
+            index={index}
             title="Certifications"
             icon={Award}
             subtitle="Formal training and exam progress."
@@ -32,8 +41,8 @@ const Certifications = () => {
           />
 
           <div className="grid md:grid-cols-2 gap-6">
-            {certifications.map((certification, index) => (
-              <Reveal key={certification.name} delay={index * 0.08}>
+            {shown.map((certification, i) => (
+              <Reveal key={certification.name} delay={i * 0.08}>
                 <div className="hud-panel hud-panel-hover p-6 h-full flex flex-col">
                   <div className="flex items-start justify-between gap-4 mb-4">
                     <div>
@@ -98,6 +107,26 @@ const Certifications = () => {
               </Reveal>
             ))}
           </div>
+
+          {hiddenCount > 0 && (
+            <Reveal delay={0.16}>
+              <div className="mt-10 flex flex-col items-center gap-3">
+                <Link
+                  to="/certs"
+                  className="group inline-flex items-center gap-2 border border-neon/40 px-5 py-2.5 text-xs uppercase tracking-wide text-neon transition-all duration-300 hover:border-neon hover:bg-neon/10 hover:shadow-neon"
+                >
+                  view all {certifications.length} certifications
+                  <ArrowUpRight
+                    className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    strokeWidth={1.75}
+                  />
+                </Link>
+                <p className="text-[11px] text-gray-700 tabular-nums">
+                  +{hiddenCount} more on the certs page
+                </p>
+              </div>
+            </Reveal>
+          )}
         </div>
       </div>
     </section>

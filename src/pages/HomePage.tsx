@@ -12,7 +12,7 @@ const HomePage = () => {
       <About />
       <Projects limit={2} />
       <Skills />
-      <Certifications />
+      <Certifications limit={4} />
       <Contact index="05" />
     </>
   );

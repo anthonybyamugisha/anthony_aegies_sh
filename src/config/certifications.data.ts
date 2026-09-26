@@ -24,6 +24,28 @@ export interface TimelineEntry {
 
 export const certifications: Certification[] = [
   {
+    name: 'Cyber Security Awareness',
+    code: '',
+    issuer: 'HP LIFE',
+    status: 'CERTIFIED',
+    year: 'Jul 2026',
+    focus: [
+      'Common cyber threats and phishing',
+      'Password hygiene and account safety',
+      'Safe browsing and device security',
+      'Reporting and responding to incidents',
+    ],
+    credentialUrl: 'https://www.life-global.org/certificate/77e706b5-db7c-4e99-a88f-bd06da957af3',
+  },
+  {
+    name: 'Online Security and Privacy',
+    code: '',
+    issuer: 'DisasterReady',
+    status: 'CERTIFIED',
+    year: 'Jul 2026',
+    focus: ['Data privacy', 'Risk management', 'Online safety and threat awareness'],
+  },
+  {
     name: 'Cyber Security in Finance',
     code: '',
     issuer: 'SimpliLearn',
@@ -39,6 +61,49 @@ export const certifications: Certification[] = [
       'https://www.simplilearn.com/skillup-certificate-landing?token=eyJjb3Vyc2VfaWQiOiI1NjQ0IiwiY2VydGlmaWNhdGVfdXJsIjoiaHR0cHM6XC9cL2NlcnRpZmljYXRlcy5zaW1wbGljZG4ubmV0XC9zaGFyZVwvMTA0Njk2OTVfOTE4MzE1OV8xNzg0MDQ5MzQ1MTQxLnBuZyIsInVzZXJuYW1lIjoiQllBTVVHSVNIQSBBTlRIT05ZIn0&utm_source=shared-certificate&utm_medium=app_lms&utm_campaign=shared-certificate-promotion&referrer=https%3A%2F%2Fcertificates.simplicdn.net%2Fshare%2F10469695_9183159_1784049345141.png&_branch_match_id=1609108511893625612&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL87MLcjJ1EssKNDLyczL1g%2BMzE81tfRw9jNJsq8rSk1LLSrKzEuPTyrKLy9OLbL1yczLTk3xzAMAdwyMMj8AAAA%3D',
   },
   {
+    name: 'CompTIA Security+ Cert Prep',
+    code: 'SY0-708',
+    issuer: 'LinkedIn Learning',
+    status: 'CERTIFIED',
+    year: 'Jul 2026',
+    focus: [
+      'Security fundamentals and threats',
+      'Risk management and governance',
+      'Technologies and operations',
+    ],
+    credentialUrl:
+      'https://www.linkedin.com/learning/certificates/e810450c8b822e6a2ddae11d1197589c95252e28417db90e4b4a735156715e21?trk=share_certificate&contentTrackingId=J0r8DU0FTB61z%2BtyIV96MQ%3D%3D&viewName=premium-nav-upsell-text&upsellOrderOrigin=Tracking%3Av1%3Apremium_nav_upsell_text%3ANav%3AIn-Product',
+  },
+  {
+    name: 'Introduction to ITIL® V4',
+    code: '',
+    issuer: 'SimpliLearn',
+    status: 'CERTIFIED',
+    year: 'Jul 2026',
+    focus: [
+      'Guiding principles and the service value system',
+      'Service management system and four dimensions',
+      'Incident, problem and change practices',
+      'Service level and value management',
+    ],
+    credentialUrl:
+      'https://www.simplilearn.com/skillup-certificate-landing?token=eyJjb3Vyc2VfaWQiOiI0MTg0IiwiY2VydGlmaWNhdGVfdXJsIjoiaHR0cHM6XC9cL2NlcnRpZmljYXRlcy5zaW1wbGljZG4ubmV0XC9zaGFyZVwvMTA0OTY4NDNfOTE4MzE1OV8xNzg0NjY1MDI5NzUyLnBuZyIsInVzZXJuYW1lIjpudWxsfQ%3D%3D&utm_source=shared-certificate&utm_medium=lms&utm_campaign=shared-certificate-promotion&referrer=https%3A%2F%2Flms.simplilearn.com%2Fcourses%2F7118%2FIntroduction-to-ITIL%25C2%25AE-V4%2Fcertificate%2Fdownload-skillup&%24web_only=true&_branch_match_id=1609108511893625612&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL87MLcjJ1EssKNDLyczL1k%2FVN7AI9swocAoxNEmyrytKTUstKsrMS49PKsovL04tsvXJzMtOTfHMAwAXZ0s2QQAAAA%3D%3D',
+  },
+  {
+    name: 'Python Programming',
+    code: 'CERT-B864FED4',
+    issuer: 'OneRoadmap',
+    status: 'CERTIFIED',
+    year: 'Jul 2026',
+    focus: [
+      'Syntax, data types and control flow',
+      'Functions, modules and packages',
+      'File handling and error handling',
+      'Core data structures and standard library',
+    ],
+    credentialUrl: 'https://www.oneroadmap.io/skills/python/certificate/CERT-B864FED4',
+  },
+  {
     name: 'Introduction to Networks',
     code: '',
     issuer: 'Cisco Networking Academy',
@@ -52,6 +117,20 @@ export const certifications: Certification[] = [
     ],
     credentialUrl:
       'https://www.netacad.com/certificates?issuanceId=64f07ace-4814-4b0a-8b7f-13235bd9664b',
+  },
+  {
+    name: 'Data Science and Analytics',
+    code: '',
+    issuer: 'HP',
+    status: 'CERTIFIED',
+    year: 'Dec 2025',
+    focus: [
+      'Data analysis and interpretation',
+      'Statistics and data literacy',
+      'Spreadsheets and reporting',
+      'Privacy and responsible data handling',
+    ],
+    credentialUrl: 'https://www.life-global.org/certificate/39092993-e762-457a-97e6-39193cfc8163',
   },
   {
     name: 'CompTIA Security+',
