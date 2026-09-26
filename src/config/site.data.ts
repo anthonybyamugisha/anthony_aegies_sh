@@ -9,7 +9,6 @@ import {
   Download,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import avatarImage from '../assets/images/portifolio_image.jpg';
 
 export interface SocialLink {
   label: string;
@@ -59,7 +58,10 @@ export const site = {
   phone: '',
   whatsapp: WHATSAPP_NUMBER,
   resumeUrl: '',
-  avatarUrl: avatarImage,
+  // Served from public/ rather than imported, so the URL is stable and the
+  // browser can discover it from the preload in index.html without waiting for
+  // the JS bundle to execute. Kept in sync with the preload's imagesrcset.
+  avatarUrl: '/portifolio_image.jpg',
   bio: "I'm a final-year Computer Science student at Makerere University with a focus on cybersecurity. Most of my time goes into security operations, threat detection and SIEM log analysis — breaking noisy data down until the real signal shows up, then documenting what I found so someone else can act on it.",
   focus: [
     'Cybersecurity',

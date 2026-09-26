@@ -6,6 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--
+      Hero avatar preload. The image lives in public/ so this URL is stable.
+      When it was imported from src/ the URL was content-hashed and only became
+      knowable after the JS bundle downloaded and executed, which delayed the
+      request by ~900ms. imagesrcset/imagesizes mirror the <img> in Hero.tsx so
+      the preload resolves to the same candidate instead of double-downloading.
+    -->
+    <link
+      rel="preload"
+      as="image"
+      href="/portifolio_image.jpg"
+      imagesrcset="/portifolio_image-224.jpg 224w, /portifolio_image.jpg 448w"
+      imagesizes="(max-width: 768px) 240px, 448px"
+      fetchpriority="high"
+    />
+
+    <!--
       Webfont. Loaded here as <link> tags rather than a CSS @import so the
       browser discovers it during the first parse instead of after the app CSS
       has been fetched. preconnect warms the TLS handshake to both origins —

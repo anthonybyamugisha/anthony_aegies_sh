@@ -24,6 +24,8 @@ const Hero = () => {
                   <div className="relative rounded-full overflow-hidden aspect-square bg-base-800">
                       <img
                         src={site.avatarUrl}
+                        srcSet="/portifolio_image-224.jpg 224w, /portifolio_image.jpg 448w"
+                        sizes="(max-width: 768px) 240px, 448px"
                         alt={`${site.name}, ${site.role}`}
                         width={448}
                         height={416}
