@@ -22,13 +22,16 @@ const Hero = () => {
                   <div className="absolute -inset-px rounded-full border border-neon/40 neon-glow" />
                   <div className="absolute inset-0 rounded-full border border-neon/20" />
                   <div className="relative rounded-full overflow-hidden aspect-square bg-base-800">
-                    <img
-                      src={site.avatarUrl}
-                      alt={`${site.name}, ${site.role}`}
-                      width={448}
-                      height={416}
-                      className="w-full h-full object-cover object-top"
-                    />
+                      <img
+                        src={site.avatarUrl}
+                        alt={`${site.name}, ${site.role}`}
+                        width={448}
+                        height={416}
+                        loading="eager"
+                        fetchPriority="high"
+                        decoding="async"
+                        className="w-full h-full object-cover object-top"
+                      />
                     <div className="absolute inset-0 crt-scanlines opacity-40" />
                     <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-neon/10" />
                   </div>
