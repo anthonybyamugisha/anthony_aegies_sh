@@ -1,4 +1,4 @@
-import { Award, FileCheck2, Clock3, CalendarDays } from 'lucide-react';
+import { Award, FileCheck2, Clock3, CalendarDays, ArrowUpRight } from 'lucide-react';
 import SectionHeading from './ui/SectionHeading';
 import Reveal from './ui/Reveal';
 import { certifications, timelineStats } from '../config/certifications.data';
@@ -63,7 +63,7 @@ const Certifications = () => {
                     ))}
                   </ul>
 
-                  <div className="flex items-center gap-5 pt-4 border-t border-neon/10 text-[11px] text-gray-600">
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-4 border-t border-neon/10 text-[11px] text-gray-600">
                     <span className="flex items-center gap-1.5">
                       <CalendarDays className="w-3.5 h-3.5" strokeWidth={1.5} />
                       {certification.year}
@@ -78,6 +78,20 @@ const Certifications = () => {
                         <Clock3 className="w-3.5 h-3.5" strokeWidth={1.5} />
                         in progress
                       </span>
+                    )}
+                    {certification.credentialUrl && (
+                      <a
+                        href={certification.credentialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group ml-auto flex items-center gap-1.5 text-neon/80 transition-colors hover:text-neon"
+                      >
+                        show credential
+                        <ArrowUpRight
+                          className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                          strokeWidth={1.5}
+                        />
+                      </a>
                     )}
                   </div>
                 </div>

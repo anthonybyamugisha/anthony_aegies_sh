@@ -8,6 +8,7 @@ export interface Certification {
   status: 'IN PROGRESS' | 'CERTIFIED' | 'PLANNED';
   year: string;
   focus: string[];
+  credentialUrl?: string;
 }
 
 export interface TimelineEntry {
@@ -22,6 +23,36 @@ export interface TimelineEntry {
 }
 
 export const certifications: Certification[] = [
+  {
+    name: 'Cyber Security in Finance',
+    code: '',
+    issuer: 'SimpliLearn',
+    status: 'CERTIFIED',
+    year: 'Jul 2026',
+    focus: [
+      'Threat landscape in financial services',
+      'Encryption and secure transactions',
+      'Risk management and governance',
+      'Regulatory and compliance frameworks',
+    ],
+    credentialUrl:
+      'https://www.simplilearn.com/skillup-certificate-landing?token=eyJjb3Vyc2VfaWQiOiI1NjQ0IiwiY2VydGlmaWNhdGVfdXJsIjoiaHR0cHM6XC9cL2NlcnRpZmljYXRlcy5zaW1wbGljZG4ubmV0XC9zaGFyZVwvMTA0Njk2OTVfOTE4MzE1OV8xNzg0MDQ5MzQ1MTQxLnBuZyIsInVzZXJuYW1lIjoiQllBTVVHSVNIQSBBTlRIT05ZIn0&utm_source=shared-certificate&utm_medium=app_lms&utm_campaign=shared-certificate-promotion&referrer=https%3A%2F%2Fcertificates.simplicdn.net%2Fshare%2F10469695_9183159_1784049345141.png&_branch_match_id=1609108511893625612&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL87MLcjJ1EssKNDLyczL1g%2BMzE81tfRw9jNJsq8rSk1LLSrKzEuPTyrKLy9OLbL1yczLTk3xzAMAdwyMMj8AAAA%3D',
+  },
+  {
+    name: 'Introduction to Networks',
+    code: '',
+    issuer: 'Cisco Networking Academy',
+    status: 'CERTIFIED',
+    year: 'Sep 2025',
+    focus: [
+      'Network fundamentals and topologies',
+      'OSI and TCP/IP models',
+      'IP addressing and subnetting',
+      'Basic configuration and troubleshooting',
+    ],
+    credentialUrl:
+      'https://www.netacad.com/certificates?issuanceId=64f07ace-4814-4b0a-8b7f-13235bd9664b',
+  },
   {
     name: 'CompTIA Security+',
     code: 'SY0-701',
