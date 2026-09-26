@@ -1,4 +1,4 @@
-import { GraduationCap, School, BookOpen } from 'lucide-react';
+import { GraduationCap, School, BookOpen, Building2 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 export interface Certification {
@@ -70,7 +70,49 @@ export const education: TimelineEntry[] = [
   },
 ];
 
-export const experience: TimelineEntry[] = [];
+export interface ExperienceEntry {
+  title: string;
+  organization: string;
+  type: 'Internship' | 'Contract' | 'Full-time' | 'Part-time' | 'Volunteer';
+  period: string;
+  duration: string;
+  location: string;
+  mode: string;
+  description: string;
+  skills: string[];
+  skillsNote?: string;
+  icon: LucideIcon;
+}
+
+export const experience: ExperienceEntry[] = [
+  {
+    title: 'Information Security Assurance Intern',
+    organization: 'Centenary Bank',
+    type: 'Internship',
+    period: 'Jun 2026 - Aug 2026',
+    duration: '3 mos',
+    location: 'Kampala, Central Region, Uganda',
+    mode: 'On-site',
+    description:
+      'Information security assurance internship working on cybersecurity monitoring, analysis and reporting.',
+    skills: ['Cybersecurity', 'Microsoft Power BI'],
+    skillsNote: '+10 skills',
+    icon: Building2,
+  },
+  {
+    title: 'Student Teacher',
+    organization: 'Buddo Secondary School',
+    type: 'Contract',
+    period: 'Mar 2024 - Aug 2024',
+    duration: '6 mos',
+    location: 'Buddo, Wakiso, Uganda',
+    mode: 'On-site',
+    description:
+      'Taught A-level Physics and Mathematics, simplifying complex concepts to build student understanding. Assessed and graded student exams under teacher guidance, which sharpened my assessment and feedback capability.',
+    skills: ['Communication', 'Time Management'],
+    icon: School,
+  },
+];
 
 export const timelineStats = {
   certifications: certifications.length,
