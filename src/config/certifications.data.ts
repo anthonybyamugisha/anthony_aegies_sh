@@ -241,6 +241,4 @@ export const experience: ExperienceEntry[] = [
 export const timelineStats = {
   certifications: certifications.length,
   certified: certifications.filter((cert) => cert.status === 'CERTIFIED').length,
-  education: education.length,
-  experience: experience.length,
 };

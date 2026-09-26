@@ -81,6 +81,14 @@ const Contact = ({ index = '07' }: ContactProps) => {
       return;
     }
 
+    // Honeypot: bots fill hidden fields, humans never see this one.
+    const honeypot = formRef.current.elements.namedItem('company_website') as HTMLInputElement | null;
+    if (honeypot && honeypot.value !== '') {
+      setSubmitStatus('success');
+      formRef.current.reset();
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       await emailjs.sendForm(
@@ -246,6 +254,17 @@ const Contact = ({ index = '07' }: ContactProps) => {
                     {errors.message && (
                       <p className="mt-1.5 text-[11px] text-red-400">{errors.message}</p>
                     )}
+                  </div>
+
+                  <div aria-hidden="true" className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
+                    <label htmlFor="company_website">Company website</label>
+                    <input
+                      id="company_website"
+                      name="company_website"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
                   </div>
 
                   <ActionButton

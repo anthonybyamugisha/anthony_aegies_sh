@@ -1,7 +1,8 @@
 # Anthony Aegies
 
-Personal portfolio and terminal/HUD-styled site for **Anthony Byamugisha** — security analyst and
-data analyst, cybersecurity student at Makerere University.
+Personal portfolio and terminal/HUD-styled site for **Anthony Byamugisha** — final-year Computer
+Science student at Makerere University, focused on cybersecurity, security operations, threat
+detection and SIEM log analysis.
 
 Built as a data-driven React single-page app: all editable content lives in `src/config/`, so the
 pages themselves contain no hardcoded personal details.
@@ -26,7 +27,15 @@ pages themselves contain no hardcoded personal details.
 - **Matrix rain renderer** — dual-canvas (`src/components/layout/MatrixRain.tsx`) with independent
   per-column speed, glyph size, trail length, brightness and blur, DPR-aware, paused on tab blur.
 - **Reveal-on-scroll** throughout, plus a dedicated contact panel, tag filtering on `/projects`,
-  skills proficiency bars, certifications, and a Hashnode-backed blog.
+  status filtering on certifications, skills proficiency bars, and a Hashnode-backed blog.
+- **Certification filtering** — `all` / `completed` / `in progress` / `planned` tabs with live counts,
+  on both the home page and `/certs`. The home page limits the grid to four cards and links out to
+  `/certs` for the rest; the limit applies *after* filtering, so the "view all" link disappears when
+  a filter already fits inside the limit.
+- **Credential links** — each certification can carry a `credentialUrl`, rendered as a
+  "show credential" link.
+- **Spam protection** — the contact form uses a hidden honeypot field; bot submissions short-circuit
+  without hitting the EmailJS quota.
 
 Every animation honours `prefers-reduced-motion`.
 
@@ -104,6 +113,7 @@ src/
     ui/                       Reusable primitives
       Reveal.tsx              Scroll-reveal wrapper
       SectionHeading.tsx      Numbered section heading
+      SectionNav.tsx          Top/bottom prev-next section links
       ActionButton.tsx        primary / outline / muted button
       ThemeToggle.tsx         Dark/light switch
       ProjectCard.tsx
@@ -115,11 +125,13 @@ src/
     nav.data.ts               Navigation routes and icons
     projects.data.ts          Projects and filter tags
     skills.data.ts            Proficiency and stack groups
-    certifications.data.ts    Certifications, education, stats
+    certifications.data.ts    Certifications, education, experience, stats
   lib/
     theme.ts                  Theme store, persistence, transition applier
     routes.ts                 Lazy route loaders and prefetch helper
   pages/                      Route-level components (lazy loaded)
+public/
+  robots.txt                  Allow-all + sitemap pointer
 ```
 
 ## Routes
@@ -136,7 +148,12 @@ Most edits need no component changes:
   Setting `whatsapp` adds a WhatsApp row that links through `wa.me`; adding `phone` and `resumeUrl`
   reveals a `tel:` row in the contact panel and swaps the hero's secondary CTA to a download button.
 - **Navigation** — `src/config/nav.data.ts`.
-- **Projects, skills, certifications** — the matching files in `src/config/`.
+- **Projects, skills, certifications, education, experience** — the matching files in `src/config/`.
+  Certification records take a `status` of `CERTIFIED`, `IN PROGRESS` or `PLANNED`; the filter tabs
+  and the header counts are derived from that field, so nothing needs updating by hand.
+- **Certifications on the home page** — `src/pages/HomePage.tsx` renders
+  `<Certifications limit={4} showFilters />`. Raise or drop the limit to change how many cards appear
+  before the `/certs` link; drop `showFilters` to hide the tabs.
 - **Colours and spacing** — the `--c-*` custom properties at the top of `src/index.css`. Both themes
   are defined there; Tailwind colour tokens in `tailwind.config.js` resolve from those variables, so
   changing a variable updates utilities, components and the canvas rain together.
@@ -144,6 +161,26 @@ Most edits need no component changes:
   placeholders and should be filled in before deploying.
 - **Theme transition timing and zigzag shape** — `TOTAL_MS`, `BAND_AMP` and `BAND_TEETH` at the top
   of `src/components/layout/ThemeTransition.tsx`.
+
+## Before you deploy
+
+`YOUR_` placeholders remain in three files. Searching for `YOUR_` should return hits only in these
+locations once you are done:
+
+| File | Placeholder | What to put there |
+| --- | --- | --- |
+| `index.html` | `YOUR_SITE_URL` | Live origin, used by `canonical`, `og:url` and JSON-LD `url` |
+| `index.html` | `YOUR_OG_IMAGE_URL` | Absolute 1200×630 image URL for link previews |
+| `index.html` | `YOUR_VERIFICATION_CODE` | Google Search Console verification token |
+| `sitemap.xml` | `YOUR_SITE_URL` | Same origin, as the prefix for every `<loc>` |
+
+Also confirm:
+
+- `public/robots.txt` has the same origin in its `Sitemap:` line.
+- `sitemap.xml` lists every indexable route. `/about` and `/skills` are not listed by default.
+- EmailJS variables exist in the host's build environment, not only in your local `.env` — Vite
+  inlines them at build time, so a stale build ships the offline notice.
+- A real submission has been sent through the form end to end.
 
 ## Deployment
 
