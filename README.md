@@ -37,7 +37,11 @@ pages themselves contain no hardcoded personal details.
 - **Spam protection** — the contact form uses a hidden honeypot field; bot submissions short-circuit
   without hitting the EmailJS quota.
 
-Every animation honours `prefers-reduced-motion`.
+Motion is reduced when the user asks for it. `useReducedMotion()` gates the Framer Motion work —
+`App.tsx`, `MatrixRain`, `RouteTransition`, `ThemeTransition` and `Reveal` — and a global
+`prefers-reduced-motion` block in `index.css` collapses CSS transitions, keyframe animations and
+smooth scrolling to a single frame. The route wipe and page sweep are hidden outright. State changes
+still happen; only the movement goes away.
 
 ## Tech stack
 

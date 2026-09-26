@@ -369,6 +369,26 @@
   }
 }
 
+/*
+ * Global reduced-motion safety net.
+ *
+ * Framer Motion animations are handled in JS via useReducedMotion()
+ * (App, MatrixRain, RouteTransition, ThemeTransition, Reveal). This block
+ * covers what JS cannot reach: CSS transitions, keyframe animations and
+ * smooth scrolling. Durations collapse to a single frame so state changes
+ * (hover, focus, theme, open/close) still happen, just without the movement.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @keyframes blink {
   0%,
   49% {
