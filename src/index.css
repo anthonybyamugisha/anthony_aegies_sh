@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+/*
+ * The webfont is loaded from <link> tags in index.html, not from a CSS @import.
+ *
+ * An @import here is only discovered after this stylesheet has been downloaded
+ * and parsed, which serialises the chain:
+ *   HTML -> app CSS -> Google Fonts CSS -> woff2
+ * As a <link> in the document the browser starts the font request during the
+ * first parse, in parallel with the JS and CSS bundles.
+ */
 
 @tailwind base;
 @tailwind components;

@@ -5,6 +5,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!--
+      Webfont. Loaded here as <link> tags rather than a CSS @import so the
+      browser discovers it during the first parse instead of after the app CSS
+      has been fetched. preconnect warms the TLS handshake to both origins —
+      fonts.gstatic.com matters most, since the woff2 only appears after the
+      Google Fonts CSS has been parsed. Keep in sync with --c-* / fontFamily in
+      tailwind.config.js.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+    />
+
     <!-- Favicon (inline so there is no extra request) -->
     <link
       rel="icon"
