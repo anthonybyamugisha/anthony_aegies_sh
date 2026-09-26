@@ -1,5 +1,4 @@
 import {
-  Target,
   GraduationCap,
   Sparkles,
   User,
@@ -9,9 +8,10 @@ import {
   MapPin,
 } from 'lucide-react';
 import SectionHeading from './ui/SectionHeading';
+import SectionNav from './ui/SectionNav';
 import Reveal from './ui/Reveal';
 import { site } from '../config/site.data';
-import { education, experience, certifications } from '../config/certifications.data';
+import { education, experience } from '../config/certifications.data';
 
 const About = () => {
   return (
@@ -112,68 +112,6 @@ const About = () => {
               <Reveal delay={0.16}>
                 <div className="hud-panel p-6">
                   <p className="flex items-center gap-2 text-neon text-xs mb-5">
-                    <Briefcase className="w-4 h-4" strokeWidth={1.5} />
-                    <span className="text-gray-600">/experience</span>
-                  </p>
-
-                  {experience.map((entry) => {
-                    const Icon = entry.icon;
-                    return (
-                      <div
-                        key={entry.title}
-                        className="mb-6 border-b border-neon/10 pb-6 last:mb-0 last:border-0 last:pb-0"
-                      >
-                        <div className="flex items-start gap-3">
-                          <Icon
-                            className="mt-1 w-4 h-4 shrink-0 text-neon/70"
-                            strokeWidth={1.5}
-                          />
-                          <div className="min-w-0 flex-1">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <h3 className="text-gray-100 font-semibold">{entry.title}</h3>
-                              <span className="shrink-0 border border-neon/20 px-1.5 py-0.5 text-[9px] tracking-[0.15em] text-neon/70">
-                                {entry.type}
-                              </span>
-                            </div>
-                            <p className="text-sm text-gray-500">{entry.organization}</p>
-
-                            <p className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-600">
-                              <span className="flex items-center gap-1.5">
-                                <CalendarDays className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
-                                {entry.period} &middot; {entry.duration}
-                              </span>
-                              <span className="text-gray-700">|</span>
-                              <span className="flex items-center gap-1.5">
-                                <MapPin className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
-                                {entry.location} &middot; {entry.mode}
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-
-                        <p className="mt-3 text-sm text-gray-600 leading-relaxed">
-                          {entry.description}
-                        </p>
-
-                        <div className="mt-3 flex flex-wrap gap-1.5">
-                          {entry.skills.map((skill) => (
-                            <span key={skill} className="tag">
-                              {skill}
-                            </span>
-                          ))}
-                          {entry.skillsNote && (
-                            <span className="tag text-gray-600">{entry.skillsNote}</span>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </Reveal>
-
-              <Reveal delay={0.24}>
-                <div className="hud-panel p-6">
-                  <p className="flex items-center gap-2 text-neon text-xs mb-5">
                     <Sparkles className="w-4 h-4" strokeWidth={1.5} />
                     <span className="text-gray-600">/strengths</span>
                   </p>
@@ -186,28 +124,83 @@ const About = () => {
                   </div>
                 </div>
               </Reveal>
+            </div>
+          </div>
 
-              <Reveal delay={0.32}>
-                <div className="hud-panel p-6">
-                  <p className="flex items-center gap-2 text-neon text-xs mb-5">
-                    <Target className="w-4 h-4" strokeWidth={1.5} />
-                    <span className="text-gray-600">/certification progress</span>
-                  </p>
-                  <div className="space-y-3">
-                    {certifications.map((certification) => (
-                      <div
-                        key={certification.name}
-                        className="flex items-center justify-between gap-3 pb-3 border-b border-neon/10 last:border-0 last:pb-0"
-                      >
-                        <span className="text-sm text-gray-400">{certification.name}</span>
-                        <span className="text-[10px] text-neon/80 shrink-0">
-                          {certification.status}
+          <div className="mt-16">
+            <SectionNav prev={{ label: 'About', to: '#about' }} />
+
+            <SectionHeading
+              index="01.1"
+              title="Experience"
+              icon={Briefcase}
+              subtitle="Roles I have worked in, and what I was responsible for."
+            />
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {experience.map((entry, index) => {
+                const Icon = entry.icon;
+                return (
+                  <Reveal key={entry.title} delay={index * 0.08}>
+                    <div className="hud-panel hud-panel-hover flex h-full flex-col p-6">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-3 min-w-0">
+                          <Icon
+                            className="mt-1 w-4 h-4 shrink-0 text-neon/70"
+                            strokeWidth={1.5}
+                          />
+                          <div className="min-w-0">
+                            <h3 className="text-gray-100 font-semibold leading-snug">
+                              {entry.title}
+                            </h3>
+                            <p className="mt-0.5 text-sm text-gray-500">
+                              {entry.organization}
+                            </p>
+                          </div>
+                        </div>
+
+                        <span className="shrink-0 border border-neon/20 px-1.5 py-0.5 text-[9px] tracking-[0.15em] text-neon/70">
+                          {entry.type}
                         </span>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </Reveal>
+
+                      <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-600">
+                        <span className="flex items-center gap-1.5">
+                          <CalendarDays
+                            className="w-3.5 h-3.5 shrink-0"
+                            strokeWidth={1.5}
+                          />
+                          {entry.period} &middot; {entry.duration}
+                        </span>
+                        <span className="text-gray-700">|</span>
+                        <span className="flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
+                          {entry.location} &middot; {entry.mode}
+                        </span>
+                      </p>
+
+                      <p className="mt-4 flex-1 text-sm text-gray-600 leading-relaxed">
+                        {entry.description}
+                      </p>
+
+                      <div className="mt-5 flex flex-wrap gap-1.5 border-t border-neon/10 pt-4">
+                        {entry.skills.map((skill) => (
+                          <span key={skill} className="tag">
+                            {skill}
+                          </span>
+                        ))}
+                        {entry.skillsNote && (
+                          <span className="tag text-gray-600">{entry.skillsNote}</span>
+                        )}
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+
+            <div className="mt-12">
+              <SectionNav next={{ label: 'Contact', to: '/contact' }} />
             </div>
           </div>
         </div>
