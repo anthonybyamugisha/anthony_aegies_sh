@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Charset and Viewport -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon (inline so there is no extra request) -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060709'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' font-weight='bold' fill='%2306b6d4' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E"
+    />
+
+    <!-- Title -->
+    <title>Anthony Byamugisha | Cybersecurity &amp; Data Analyst</title>
+
+    <!--
+      Keep the copy below in sync with src/config/site.data.ts
+      (title, description, keywords, author, og/twitter tags, canonical, JSON-LD).
+      Replace YOUR_* placeholders before going live.
+    -->
+    <meta
+      name="description"
+      content="Anthony Byamugisha - cybersecurity and data analytics student at Makerere University. Focused on security operations, threat detection, SIEM and log analysis."
+    />
+    <meta
+      name="keywords"
+      content="Anthony Byamugisha, Portfolio, Cybersecurity, Security Analyst, SOC, SIEM, Threat Detection, Incident Response, Data Analyst, Power BI, Python, SQL, Linux, Makerere University, Kampala, Uganda"
+    />
+    <meta name="author" content="Anthony Byamugisha" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Anthony Byamugisha | Cybersecurity &amp; Data Analyst" />
+    <meta
+      property="og:description"
+      content="Cybersecurity and data analytics student focused on security operations, threat detection and SIEM log analysis."
+    />
+    <meta property="og:image" content="YOUR_OG_IMAGE_URL" />
+    <meta property="og:url" content="YOUR_SITE_URL" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Anthony Byamugisha | Cybersecurity &amp; Data Analyst" />
+    <meta
+      name="twitter:description"
+      content="Cybersecurity and data analytics student focused on security operations, threat detection and SIEM log analysis."
+    />
+    <meta name="twitter:image" content="YOUR_OG_IMAGE_URL" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="YOUR_SITE_URL" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Anthony Byamugisha",
+        "url": "YOUR_SITE_URL",
+        "jobTitle": "Cybersecurity Enthusiast | Data Analyst",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Kampala",
+          "addressCountry": "UG"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Makerere University"
+        },
+        "knowsAbout": [
+          "Cybersecurity",
+          "Security Operations",
+          "SIEM",
+          "Threat Detection",
+          "Data Analysis"
+        ]
+      }
+    </script>
+
+    <!-- Google Search Verification -->
+    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#040604" />
+
+    <script>
+      (function () {
+        try {
+          var stored = window.localStorage.getItem('anthony-theme');
+          document.documentElement.dataset.theme = stored === 'light' ? 'light' : 'dark';
+        } catch (error) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

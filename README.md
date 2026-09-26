@@ -1,0 +1,156 @@
+# Anthony Aegies
+
+Personal portfolio and terminal/HUD-styled site for **Anthony Byamugisha** — security analyst and
+data analyst, cybersecurity student at Makerere University.
+
+Built as a data-driven React single-page app: all editable content lives in `src/config/`, so the
+pages themselves contain no hardcoded personal details.
+
+- **GitHub** — https://github.com/anthonybyamugisha
+- **LinkedIn** — https://www.linkedin.com/in/anthonybyamugisha/
+- **Email** — byamugishanthony@gmail.com
+- **WhatsApp** — +256 748 161 708
+
+## Features
+
+- **Terminal / HUD aesthetic** — near-black surfaces, neon-green accent, JetBrains Mono, technical
+  grid, CRT scanlines, and an inset HUD frame with corner brackets.
+- **Dark and light themes** — CSS-variable driven, persisted to `localStorage`, with a pre-React
+  bootstrap in `index.html` so there is no flash of the wrong theme on load.
+- **Command-style route transitions** — a full-screen overlay types `./anthony.sh --route /projects`,
+  logs `[ok]` lines, fills a progress bar, then wipes away. Built on
+  `AnimatePresence mode="wait"` with route-level lazy loading and hover/focus chunk prefetching.
+- **Zigzag theme transition** — switching themes plays a serrated-edge wipe carrying Matrix binary
+  rain. The band fully covers the viewport at the midpoint so the theme swap is never visible. The
+  rain is mounted *only* during this transition, never as a persistent background.
+- **Matrix rain renderer** — dual-canvas (`src/components/layout/MatrixRain.tsx`) with independent
+  per-column speed, glyph size, trail length, brightness and blur, DPR-aware, paused on tab blur.
+- **Reveal-on-scroll** throughout, plus a dedicated contact panel, tag filtering on `/projects`,
+  skills proficiency bars, certifications, and a Hashnode-backed blog.
+
+Every animation honours `prefers-reduced-motion`.
+
+## Tech stack
+
+| | |
+| --- | --- |
+| React 18 + TypeScript 5 | UI and routing |
+| Vite 5 | Dev server, build, manual vendor chunks |
+| React Router 6 | Client-side routing |
+| Tailwind CSS 3 | Utility styling, with theme tokens in CSS variables |
+| Framer Motion 11 | Page, overlay and scroll-reveal animation |
+| lucide-react | Icons |
+| EmailJS | Contact form delivery |
+| graphql-request | Hashnode blog queries |
+
+## Getting started
+
+Requires **Node.js 18+**.
+
+```bash
+npm install
+npm run dev          # http://localhost:5173
+```
+
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite dev server |
+| `npm run build` | Build to `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | Run ESLint |
+| `npx tsc -b --noEmit` | Type-check without emitting |
+| `npm run deploy` | Convenience: `git add . && git commit && git push -u origin main` |
+
+> `vite build` does not type-check. Run `npx tsc -b --noEmit` before deploying.
+
+> `npm run deploy` commits **everything** in the working tree. Review `git status` first, or prefer
+> running your own commit.
+
+## Environment variables
+
+Copy `.env.example` to `.env` and fill in what you need. All variables are optional — the site
+degrades gracefully when they are absent.
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Purpose | If unset |
+| --- | --- | --- |
+| `VITE_EMAILJS_SERVICE_ID` | EmailJS service | Contact panel shows an offline notice with a `mailto:` fallback instead of the form |
+| `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template | as above |
+| `VITE_EMAILJS_PUBLIC_KEY` | EmailJS public key | as above |
+| `VITE_HASHNODE_HOST` | Hashnode GraphQL endpoint | Blog page shows a prompt to set the variable |
+| `VITE_HASHNODE_TOKEN` | Hashnode API token | as above |
+
+Never commit `.env` — it is already in `.gitignore`.
+
+## Project structure
+
+```
+src/
+  App.tsx                     Router, lazy routes, page transitions, overlays
+  index.css                   Theme variables, component classes, keyframes
+  assets/images/              Static images
+  components/
+    layout/
+      Navbar.tsx              Terminal nav, clock, status, theme toggle
+      Footer.tsx              Dedicated footer with social channels
+      BackgroundFx.tsx        Grid, glows, vignette, scanlines
+      HudFrame.tsx            Inset viewport frame and corner brackets
+      MatrixRain.tsx          Dual-canvas binary rain (transition only)
+      RouteTransition.tsx     Command-style route wipe
+      ThemeTransition.tsx     Zigzag theme-swap wipe
+    ui/                       Reusable primitives
+      Reveal.tsx              Scroll-reveal wrapper
+      SectionHeading.tsx      Numbered section heading
+      ActionButton.tsx        primary / outline / muted button
+      ThemeToggle.tsx         Dark/light switch
+      ProjectCard.tsx
+      SkillBar.tsx
+    About.tsx Projects.tsx Skills.tsx Certifications.tsx
+    Contact.tsx Hero.tsx      Section components
+  config/                     All editable content
+    site.data.ts              Identity, contact details, socials, hero CTAs
+    nav.data.ts               Navigation routes and icons
+    projects.data.ts          Projects and filter tags
+    skills.data.ts            Proficiency and stack groups
+    certifications.data.ts    Certifications, education, stats
+  lib/
+    theme.ts                  Theme store, persistence, transition applier
+    routes.ts                 Lazy route loaders and prefetch helper
+  pages/                      Route-level components (lazy loaded)
+```
+
+## Routes
+
+`/` · `/about` · `/projects` · `/skills` · `/certs` · `/blog` · `/contact` · `*` (404)
+
+The home page renders every section; the remaining routes render a single section each.
+
+## Customization
+
+Most edits need no component changes:
+
+- **Profile, email, phone, WhatsApp, socials, location, hero CTAs** — `src/config/site.data.ts`.
+  Setting `whatsapp` adds a WhatsApp row that links through `wa.me`; adding `phone` and `resumeUrl`
+  reveals a `tel:` row in the contact panel and swaps the hero's secondary CTA to a download button.
+- **Navigation** — `src/config/nav.data.ts`.
+- **Projects, skills, certifications** — the matching files in `src/config/`.
+- **Colours and spacing** — the `--c-*` custom properties at the top of `src/index.css`. Both themes
+  are defined there; Tailwind colour tokens in `tailwind.config.js` resolve from those variables, so
+  changing a variable updates utilities, components and the canvas rain together.
+- **SEO title, description, and Open Graph tags** — `index.html`. These still contain `YOUR_`
+  placeholders and should be filled in before deploying.
+- **Theme transition timing and zigzag shape** — `TOTAL_MS`, `BAND_AMP` and `BAND_TEETH` at the top
+  of `src/components/layout/ThemeTransition.tsx`.
+
+## Deployment
+
+`npm run build` outputs a static site to `dist/`, deployable to any static host.
+
+`vercel.json` rewrites all paths to `/index.html` so client-side routes resolve on refresh. Netlify
+users need an equivalent redirect.
+
+Note that the Vite dev server and most static hosts return HTTP 200 for unknown paths, so the 404
+page is client-side only — check it renders by visiting a bogus URL directly.
